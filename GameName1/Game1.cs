@@ -28,7 +28,7 @@ namespace GameName1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            circle = new Circle(100, 100, Color.Red, CreateCircle(100));
+            circle = new Circle(200, 200, Color.Red, CreateCircle(100));
             base.Initialize();
         }
 
@@ -91,13 +91,17 @@ namespace GameName1
                 data[i] = Color.Transparent;
 
             double angleStep = 1f / radius;
-            
-            for (double angle = 0; angle < Math.PI * 2; angle += angleStep)
-            {
-                int x = (int)Math.Round(radius + radius * Math.Cos(angle));
-                int y = (int)Math.Round(radius + radius * Math.Sin(angle));
+            double copy = radius;
 
-                data[y * outerRadius + x + 1] = Color.White;
+            for (; radius > 0; radius--)
+            {
+                for (double angle = 0; angle < Math.PI * 2; angle += angleStep)
+                {
+                    int x = (int)Math.Round(copy + radius * Math.Cos(angle));
+                    int y = (int)Math.Round(copy + radius * Math.Sin(angle));
+
+                    data[y * outerRadius + x + 1] = Color.White;
+                }
             }
              
             texture.SetData(data);
